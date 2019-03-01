@@ -16,19 +16,19 @@ import com.palantir.docker.compose.configuration.ProjectName;
 import com.palantir.docker.compose.connection.DockerPort;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
-public class DemoResourceIT {
+public class CarResourceIT {
 
 	// DO NOT FORGET (on windows)
 	// DOCKER_COMPOSE_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker-compose.exe
 	// DOCKER_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker.exe
 	
 	private static final int PORT = 8080;
-    private static final String SERVICE = "demo-service";
+    private static final String SERVICE = "car-service";
 
     @ClassRule
     public static DockerComposeRule docker = DockerComposeRule.builder()
             .file("src/test/resources/docker-compose-it.yml")
-            .saveLogsTo(circleAwareLogDirectory(DemoResourceIT.class))
+            .saveLogsTo(circleAwareLogDirectory(CarResourceIT.class))
             .projectName(ProjectName.random())
             .waitingForService(SERVICE, HealthChecks.toHaveAllPortsOpen())
             .build();
@@ -45,12 +45,11 @@ public class DemoResourceIT {
     @Test
     public void smoke() throws Exception {
         String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
-
-    	Client client = ClientBuilder.newClient();
-    	WebTarget tut = client.target(endpoint + "/index.jsp");	
+        Client client = ClientBuilder.newClient();
+    	WebTarget tut = client.target(endpoint + "/CarService/index.jsp");	
     	System.out.println(tut.request().get().getStatus());
 
-    	tut = client.target(endpoint + "/DemoService/DemoService.svc/Products(1)");	
+    	tut = client.target(endpoint + "/CarService/cars.svc/Cars");	
     	System.out.println(tut.request(MediaType.APPLICATION_JSON).get().getStatus());
     }
 }

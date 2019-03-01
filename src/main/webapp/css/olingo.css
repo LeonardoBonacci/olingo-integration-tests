@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+/*
   Licensed to the Apache Software Foundation (ASF) under one
          or more contributor license agreements.  See the NOTICE file
          distributed with this work for additional information
@@ -7,36 +6,86 @@
          to you under the Apache License, Version 2.0 (the
          "License"); you may not use this file except in compliance
          with the License.  You may obtain a copy of the License at
-
+  
            http://www.apache.org/licenses/LICENSE-2.0
-
+  
          Unless required by applicable law or agreed to in writing,
          software distributed under the License is distributed on an
          "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
          KIND, either express or implied.  See the License for the
          specific language governing permissions and limitations
          under the License.
--->
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
+*/
+body {
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+	color: #8904B1;
+	background-color: #ffffff;
+}
 
-	<display-name>Car Service</display-name>
+a {
+	color: #8904B1;
+}
 
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+a:VISITED {
+	color: #D358F7;
+}
 
-	<servlet>
-		<servlet-name>CarsServlet</servlet-name>
-		<servlet-class>guru.bonacci.olingo.CarsServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+td {
+	padding: 5px;
+}
 
-	<servlet-mapping>
-		<servlet-name>CarsServlet</servlet-name>
-		<url-pattern>/cars.svc/*</url-pattern>
-	</servlet-mapping>
+h1,h2,h3,h4,h5,h6 {
+	font-family: inherit;
+	font-weight: bold;
+	line-height: 1;
+	color: #8904B1;
+}
 
-</web-app>
+h1 {
+	font-size: 36px;
+	line-height: 40px;
+}
+
+h2 {
+	font-size: 30px;
+	line-height: 40px;
+}
+
+h3 {
+	font-size: 24px;
+	line-height: 40px;
+}
+
+h4 {
+	font-size: 18px;
+	line-height: 20px;
+}
+
+h5 {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+h6 {
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.logo {
+	float: right;
+}
+
+hr, thead, tfoot {
+	margin: 9px 0;
+	border-top: 1px solid #8904B1;
+	border-bottom: 1px solid #8904B1;
+}
+
+table { border-collapse: collapse; border: 1px solid #8904B1; }
+
+.version {
+	font-family: "Courier New", monospace;
+	font-size: 10px;
+}

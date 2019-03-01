@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package guru.bonacci.olingo.web;
+package guru.bonacci.olingo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,48 +34,35 @@ import org.apache.olingo.server.api.ServiceMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import guru.bonacci.olingo.data.Storage;
-import guru.bonacci.olingo.service.DemoActionProcessor;
-import guru.bonacci.olingo.service.DemoBatchProcessor;
-import guru.bonacci.olingo.service.DemoEdmProvider;
-import guru.bonacci.olingo.service.DemoEntityCollectionProcessor;
-import guru.bonacci.olingo.service.DemoEntityProcessor;
-import guru.bonacci.olingo.service.DemoPrimitiveProcessor;
+import guru.bonacci.olingo.data.DataProvider;
+import guru.bonacci.olingo.edmprovider.CarsEdmProvider;
+import guru.bonacci.olingo.processor.CarsProcessor;
 
-public class DemoServlet extends HttpServlet {
+public class CarsServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger LOG = LoggerFactory.getLogger(DemoServlet.class);
-
+  private static final Logger LOG = LoggerFactory.getLogger(CarsServlet.class);
 
   @Override
-  protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    OData odata = OData.newInstance();
-    ServiceMetadata edm = odata.createServiceMetadata(new DemoEdmProvider(), new ArrayList<EdmxReference>());
-    
+  protected void service(final HttpServletRequest req, final HttpServletResponse resp)
+      throws ServletException, IOException {
     try {
       HttpSession session = req.getSession(true);
-      Storage storage = (Storage) session.getAttribute(Storage.class.getName());
-      if (storage == null) {
-        storage = new Storage(odata, edm.getEdm());
-        session.setAttribute(Storage.class.getName(), storage);
+      DataProvider dataProvider = (DataProvider) session.getAttribute(DataProvider.class.getName());
+      if (dataProvider == null) {
+        dataProvider = new DataProvider();
+        session.setAttribute(DataProvider.class.getName(), dataProvider);
+        LOG.info("Created new data provider.");
       }
 
-      // create odata handler and configure it with EdmProvider and Processor
+      OData odata = OData.newInstance();
+      ServiceMetadata edm = odata.createServiceMetadata(new CarsEdmProvider(), new ArrayList<EdmxReference>());
       ODataHttpHandler handler = odata.createHandler(edm);
-      handler.register(new DemoEntityCollectionProcessor(storage));
-      handler.register(new DemoEntityProcessor(storage));
-      handler.register(new DemoPrimitiveProcessor(storage));
-      handler.register(new DemoActionProcessor(storage));
-      handler.register(new DemoBatchProcessor(storage));
-
-      // let the handler do the work
+      handler.register(new CarsProcessor(dataProvider));
       handler.process(req, resp);
     } catch (RuntimeException e) {
-      LOG.error("Server Error occurred in ExampleServlet", e);
+      LOG.error("Server Error", e);
       throw new ServletException(e);
     }
-
   }
-
 }

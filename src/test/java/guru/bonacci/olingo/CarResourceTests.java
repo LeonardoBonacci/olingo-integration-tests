@@ -6,7 +6,7 @@ import javax.ws.rs.client.WebTarget;
 
 import org.junit.Test;
 
-public class DemoResourceTests {
+public class CarResourceTests {
 
 
     @Test
