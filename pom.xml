@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>guru.bonacci.olingo</groupId>
@@ -9,15 +10,23 @@
 
 	<name>${project.artifactId} Webapp</name>
 
-    <build>
+	<build>
 		<finalName>DemoService</finalName>
 	</build>
 
-    <properties>
+	<properties>
 		<javax.version>2.5</javax.version>
 		<odata.version>4.5.0</odata.version>
 		<slf4j.version>1.7.7</slf4j.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>Bintray</id>
+			<name>For now</name>
+			<url>https://dl.bintray.com/palantir/releases</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -61,6 +70,32 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.11</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.25</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-processing</artifactId>
+			<version>2.25</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.palantir.docker.compose</groupId>
+			<artifactId>docker-compose-rule-junit4</artifactId>
+			<version>0.35.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

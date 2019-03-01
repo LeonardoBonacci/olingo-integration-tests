@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+ 
+  demo-service:
+    image: webserver #avoid pulling from docker hub by defining local name
+    ports:
+      - 8080:8080
