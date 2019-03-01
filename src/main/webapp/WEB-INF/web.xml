@@ -30,7 +30,7 @@
 
 	<servlet>
 		<servlet-name>CarsServlet</servlet-name>
-		<servlet-class>guru.bonacci.olingo.CarsServlet</servlet-class>
+		<servlet-class>guru.bonacci.olingo.server.CarsServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 

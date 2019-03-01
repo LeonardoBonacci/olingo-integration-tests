@@ -1,12 +1,25 @@
 package guru.bonacci.olingo;
 
 import static com.palantir.docker.compose.logging.LogDirectory.circleAwareLogDirectory;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.olingo.client.core.ODataClientFactory;
+import org.apache.olingo.commons.api.edm.Edm;
+import org.apache.olingo.commons.api.edm.EdmComplexType;
+import org.apache.olingo.commons.api.edm.EdmEntityType;
+import org.apache.olingo.commons.api.edm.EdmSchema;
+import org.apache.olingo.commons.api.edm.FullQualifiedName;
+import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -15,6 +28,8 @@ import com.palantir.docker.compose.DockerComposeRule;
 import com.palantir.docker.compose.configuration.ProjectName;
 import com.palantir.docker.compose.connection.DockerPort;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
+
+import guru.bonacci.olingo.client.CRUD;
 
 public class CarResourceIT {
 
@@ -44,12 +59,35 @@ public class CarResourceIT {
 
     @Test
     public void smoke() throws Exception {
-        String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
+    	String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
         Client client = ClientBuilder.newClient();
     	WebTarget tut = client.target(endpoint + "/CarService/index.jsp");	
-    	System.out.println(tut.request().get().getStatus());
+    	assertThat(tut.request().get().getStatus(), is(equalTo(200)));
 
     	tut = client.target(endpoint + "/CarService/cars.svc/Cars");	
-    	System.out.println(tut.request(MediaType.APPLICATION_JSON).get().getStatus());
+    	assertThat(tut.request(MediaType.APPLICATION_JSON).get().getStatus(), is(equalTo(200)));
     }
+    
+    @Test
+    public void olingoClientGet() throws Exception {
+    	String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
+    	CRUD crud = new CRUD(ODataClientFactory.getClient());
+
+    	Edm edm = crud.readEdm(endpoint + "/CarService/cars.svc");
+        List<FullQualifiedName> ctFqns = new ArrayList<FullQualifiedName>();
+        List<FullQualifiedName> etFqns = new ArrayList<FullQualifiedName>();
+        for (EdmSchema schema : edm.getSchemas()) {
+          for (EdmComplexType complexType : schema.getComplexTypes()) {
+            ctFqns.add(complexType.getFullQualifiedName());
+          }
+          for (EdmEntityType entityType : schema.getEntityTypes()) {
+            etFqns.add(entityType.getFullQualifiedName());
+          }
+        }
+
+        assertThat(ctFqns, Matchers.contains(new FullQualifiedName("olingo.odata.sample.Address")));
+        assertThat(etFqns, Matchers.containsInAnyOrder(new FullQualifiedName("olingo.odata.sample.Manufacturer")
+        											 , new FullQualifiedName("olingo.odata.sample.Car")));
+    }    
+
 }

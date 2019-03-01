@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package guru.bonacci.olingo;
+package guru.bonacci.olingo.server;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ import org.apache.olingo.server.api.ServiceMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import guru.bonacci.olingo.data.DataProvider;
-import guru.bonacci.olingo.edmprovider.CarsEdmProvider;
-import guru.bonacci.olingo.processor.CarsProcessor;
+import guru.bonacci.olingo.server.data.DataProvider;
+import guru.bonacci.olingo.server.edmprovider.CarsEdmProvider;
+import guru.bonacci.olingo.server.processor.CarsProcessor;
 
 public class CarsServlet extends HttpServlet {
 

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package guru.bonacci.olingo.edmprovider;
+package guru.bonacci.olingo.server.edmprovider;
 
 import java.util.ArrayList;
 import java.util.Arrays;

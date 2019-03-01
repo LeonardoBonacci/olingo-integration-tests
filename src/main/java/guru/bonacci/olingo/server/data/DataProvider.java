@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package guru.bonacci.olingo.data;
+package guru.bonacci.olingo.server.data;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,7 +37,7 @@ import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeException;
 import org.apache.olingo.commons.api.edm.EdmProperty;
 import org.apache.olingo.server.api.uri.UriParameter;
 
-import guru.bonacci.olingo.edmprovider.CarsEdmProvider;
+import guru.bonacci.olingo.server.edmprovider.CarsEdmProvider;
 
 public class DataProvider {
 

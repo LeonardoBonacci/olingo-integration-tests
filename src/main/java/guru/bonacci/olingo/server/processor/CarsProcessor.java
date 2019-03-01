@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package guru.bonacci.olingo.processor;
+package guru.bonacci.olingo.server.processor;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -62,8 +62,8 @@ import org.apache.olingo.server.api.uri.UriResourceProperty;
 import org.apache.olingo.server.api.uri.queryoption.ExpandOption;
 import org.apache.olingo.server.api.uri.queryoption.SelectOption;
 
-import guru.bonacci.olingo.data.DataProvider;
-import guru.bonacci.olingo.data.DataProvider.DataProviderException;
+import guru.bonacci.olingo.server.data.DataProvider;
+import guru.bonacci.olingo.server.data.DataProvider.DataProviderException;
 
 /**
  * This processor will deliver entity collections, single entities as well as properties of an entity.
