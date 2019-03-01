@@ -50,6 +50,7 @@
 			<groupId>org.apache.olingo</groupId>
 			<artifactId>odata-client-api</artifactId>
 			<version>${odata.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.olingo</groupId>
@@ -61,6 +62,7 @@
 			<groupId>org.apache.olingo</groupId>
 			<artifactId>odata-server-api</artifactId>
 			<version>${odata.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.olingo</groupId>
@@ -114,6 +116,5 @@
 			<version>2.1</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 </project>
