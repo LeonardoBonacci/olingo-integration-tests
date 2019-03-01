@@ -1,6 +1,7 @@
 package guru.bonacci.olingo;
 
 import static com.palantir.docker.compose.logging.LogDirectory.circleAwareLogDirectory;
+import static guru.bonacci.olingo.client.Printer.print;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -13,6 +14,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.olingo.client.api.domain.ClientEntity;
 import org.apache.olingo.client.core.ODataClientFactory;
 import org.apache.olingo.commons.api.edm.Edm;
 import org.apache.olingo.commons.api.edm.EdmComplexType;
@@ -30,6 +32,7 @@ import com.palantir.docker.compose.connection.DockerPort;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
 import guru.bonacci.olingo.client.CRUD;
+import guru.bonacci.olingo.client.Printer;
 
 public class CarResourceIT {
 
@@ -69,11 +72,12 @@ public class CarResourceIT {
     }
     
     @Test
-    public void olingoClientGet() throws Exception {
+    public void olingoClientCRUD() throws Exception {
     	String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
     	CRUD crud = new CRUD(ODataClientFactory.getClient());
-
-    	Edm edm = crud.readEdm(endpoint + "/CarService/cars.svc");
+    	String serviceUrl = endpoint + "/CarService/cars.svc";
+    	
+    	Edm edm = crud.readEdm(serviceUrl);
         List<FullQualifiedName> ctFqns = new ArrayList<FullQualifiedName>();
         List<FullQualifiedName> etFqns = new ArrayList<FullQualifiedName>();
         for (EdmSchema schema : edm.getSchemas()) {
@@ -88,6 +92,15 @@ public class CarResourceIT {
         assertThat(ctFqns, Matchers.contains(new FullQualifiedName("olingo.odata.sample.Address")));
         assertThat(etFqns, Matchers.containsInAnyOrder(new FullQualifiedName("olingo.odata.sample.Manufacturer")
         											 , new FullQualifiedName("olingo.odata.sample.Car")));
+        
+        print("\n----- Create Entry ------------------------------");
+        ClientEntity ce = crud.loadEntity("/mymanufacturer.json");
+        ClientEntity entry = crud.createEntity(edm, serviceUrl, "Manufacturers", ce);
+        Printer.prettyPrint(entry.getProperties(), 1);
+        
+        print("\n----- Delete Entry ------------------------------");
+        int sc = crud.deleteEntity(serviceUrl, "Manufacturers", 123);
+        print("Deletion of Entry was successfully: " + sc);
     }    
 
 }

@@ -103,10 +103,9 @@ public class SampleApp {
       print("Entry:\n" + Printer.prettyPrint(ce.getProperties(), 0));
     }
 
-    // skip everything as odata4 sample/server only supporting retrieval
-//    print("\n----- Create Entry ------------------------------");
-//    ClientEntity ce = loadEntity("/mymanufacturer.json");
-//    entry = createEntity(edm, serviceUrl, "Manufacturers", ce);
+    print("\n----- Create Entry ------------------------------");
+    ClientEntity ce = crud.loadEntity("/mymanufacturer.json");
+    entry = crud.createEntity(edm, serviceUrl, "Manufacturers", ce);
 
 //    print("\n----- Update Entry ------------------------------");
 //    ce = loadEntity("/mymanufacturer2.json");

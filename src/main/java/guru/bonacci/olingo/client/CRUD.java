@@ -100,7 +100,7 @@ public class CRUD {
     return response.getBody();
   }
   
-  private ClientEntity loadEntity(String path) throws ODataDeserializerException {
+  public ClientEntity loadEntity(String path) throws ODataDeserializerException {
     InputStream input = getClass().getResourceAsStream(path);
     return client.getBinder().getODataEntity(client.getDeserializer(ContentType.APPLICATION_JSON).toEntity(input));
   }
