@@ -1,5 +1,5 @@
-# olingo-integration-tests
-odata POC
+# odata POC
+
 
 It's all about guru.bonacci.olingo.CarResourceIT
 -------------
