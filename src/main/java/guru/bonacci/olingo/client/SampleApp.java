@@ -40,11 +40,11 @@ import org.apache.olingo.commons.api.edm.FullQualifiedName;
 public class SampleApp {
 
   private ODataClient client;
-  private CRUD crud;
+  private CRD crud;
   
   public SampleApp() {
     client = ODataClientFactory.getClient();
-    crud = new CRUD(client);
+    crud = new CRD(client);
   }
 
   public static void main(String[] params) throws Exception {

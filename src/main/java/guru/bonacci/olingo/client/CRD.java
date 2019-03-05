@@ -42,10 +42,10 @@ import org.apache.olingo.commons.api.edm.Edm;
 import org.apache.olingo.commons.api.format.ContentType;
 
 
-public class CRUD {
+public class CRD {
   private ODataClient client;
   
-  public CRUD(ODataClient client) {
+  public CRD(ODataClient client) {
     this.client = client;
   }
 
@@ -118,17 +118,6 @@ public class CRUD {
     ODataEntityCreateResponse<ClientEntity> response = request.execute(); 
       
     return response.getBody();
-  }
-
-  public int updateEntity(Edm edm, String serviceUri, String entityName, Object keyValue, ClientEntity ce) {
-    URI absoluteUri = client.newURIBuilder(serviceUri).appendEntitySetSegment(entityName)
-      .appendKeySegment(keyValue).build();
-    ODataEntityUpdateRequest<ClientEntity> request = 
-      client.getCUDRequestFactory().getEntityUpdateRequest(absoluteUri, UpdateType.PATCH, ce);
-    // odata4 sample/server limitation not handling metadata=full
-    request.setAccept("application/json;odata.metadata=minimal");
-    ODataEntityUpdateResponse<ClientEntity> response = request.execute();
-    return response.getStatusCode();
   }
 
   public int deleteEntity(String serviceUri, String entityName, Object keyValue) throws IOException {

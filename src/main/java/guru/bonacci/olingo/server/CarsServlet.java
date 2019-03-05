@@ -49,6 +49,8 @@ public class CarsServlet extends HttpServlet {
     try {
       HttpSession session = req.getSession(true);
       DataProvider dataProvider = (DataProvider) session.getAttribute(DataProvider.class.getName());
+
+      // this mechanism looks rather stupid... :(
       if (dataProvider == null) {
         dataProvider = new DataProvider();
         session.setAttribute(DataProvider.class.getName(), dataProvider);

@@ -5,6 +5,9 @@ import static guru.bonacci.olingo.client.Printer.print;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.olingo.client.api.communication.ODataClientErrorException;
 import org.apache.olingo.client.api.domain.ClientEntity;
 import org.apache.olingo.client.core.ODataClientFactory;
 import org.apache.olingo.commons.api.edm.Edm;
@@ -31,7 +35,7 @@ import com.palantir.docker.compose.configuration.ProjectName;
 import com.palantir.docker.compose.connection.DockerPort;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
-import guru.bonacci.olingo.client.CRUD;
+import guru.bonacci.olingo.client.CRD;
 import guru.bonacci.olingo.client.Printer;
 
 public class CarResourceIT {
@@ -72,12 +76,12 @@ public class CarResourceIT {
     }
     
     @Test
-    public void olingoClientCRUD() throws Exception {
+    public void olingoClientCRD() throws Exception {
     	String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
-    	CRUD crud = new CRUD(ODataClientFactory.getClient());
+    	CRD crd = new CRD(ODataClientFactory.getClient());
     	String serviceUrl = endpoint + "/CarService/cars.svc";
     	
-    	Edm edm = crud.readEdm(serviceUrl);
+    	Edm edm = crd.readEdm(serviceUrl);
         List<FullQualifiedName> ctFqns = new ArrayList<FullQualifiedName>();
         List<FullQualifiedName> etFqns = new ArrayList<FullQualifiedName>();
         for (EdmSchema schema : edm.getSchemas()) {
@@ -93,14 +97,35 @@ public class CarResourceIT {
         assertThat(etFqns, Matchers.containsInAnyOrder(new FullQualifiedName("olingo.odata.sample.Manufacturer")
         											 , new FullQualifiedName("olingo.odata.sample.Car")));
         
-        print("\n----- Create Entry ------------------------------");
-        ClientEntity ce = crud.loadEntity("/mymanufacturer.json");
-        ClientEntity entry = crud.createEntity(edm, serviceUrl, "Manufacturers", ce);
-        Printer.prettyPrint(entry.getProperties(), 1);
+        print("\n----- Create Valid Entry ------------------------------");
+        ClientEntity ce = crd.loadEntity("/mymanufacturer.json");
+        assertNull(ce.getProperty("Id"));
         
+        print("\n Sending entity for creation");
+        Printer.prettyPrint(ce.getProperties(), 10);
+        
+        ClientEntity entry = crd.createEntity(edm, serviceUrl, "Manufacturers", ce);
+
+        print("\\n Receiving entity from creation");
+        Printer.prettyPrint(entry.getProperties(), 10);
+        assertNotNull(entry.getProperty("Id"));
+
+        print("\n----- Create Invalid Entry ------------------------------");
+        ClientEntity ce2 = crd.loadEntity("/mymanufacturer2.json");
+
+        print("\n Sending entity for creation");
+        Printer.prettyPrint(ce2.getProperties(), 10);
+        try {
+        	crd.createEntity(edm, serviceUrl, "Manufacturers", ce2);
+        	fail();
+        } catch (ODataClientErrorException ex) {
+        	// returns with http code 400
+        	ex.printStackTrace();
+        }
+
         print("\n----- Delete Entry ------------------------------");
-        int sc = crud.deleteEntity(serviceUrl, "Manufacturers", 123);
-        print("Deletion of Entry was successfully: " + sc);
+        int sc = crd.deleteEntity(serviceUrl, "Manufacturers", 123);
+        print("\n Deletion of Entry was successfully: " + sc);
     }    
 
 }

@@ -169,7 +169,7 @@ public class DataProvider {
 		return new Property(null, name, ValueType.PRIMITIVE, value);
 	}
 
-	private URI createId(String entitySetName, Object id) {
+	public static URI createId(String entitySetName, Object id) {
 		try {
 			return new URI(entitySetName + "(" + String.valueOf(id) + ")");
 		} catch (URISyntaxException e) {
