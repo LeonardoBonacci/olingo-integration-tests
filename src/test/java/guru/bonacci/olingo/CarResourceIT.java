@@ -106,9 +106,11 @@ public class CarResourceIT {
         
         ClientEntity entry = crd.createEntity(edm, serviceUrl, "Manufacturers", ce);
 
-        print("\\n Receiving entity from creation");
+        print("\n Receiving entity from creation");
         Printer.prettyPrint(entry.getProperties(), 10);
         assertNotNull(entry.getProperty("Id"));
+        print("\n---- Creation finished ----------------------------------");
+
 
         print("\n----- Create Invalid Entry ------------------------------");
         ClientEntity ce2 = crd.loadEntity("/mymanufacturer2.json");
@@ -117,15 +119,19 @@ public class CarResourceIT {
         Printer.prettyPrint(ce2.getProperties(), 10);
         try {
         	crd.createEntity(edm, serviceUrl, "Manufacturers", ce2);
-        	fail();
         } catch (ODataClientErrorException ex) {
         	// returns with http code 400
         	ex.printStackTrace();
+        	fail("'Foo' can not be mapped as a property or an annotation.");
         }
+        print("\n---- Creation finished ----------------------------------");
 
+        
         print("\n----- Delete Entry ------------------------------");
         int sc = crd.deleteEntity(serviceUrl, "Manufacturers", 123);
         print("\n Deletion of Entry was successfully: " + sc);
+        print("\n---- Deletion finished ----------------------------------");
+
     }    
 
 }

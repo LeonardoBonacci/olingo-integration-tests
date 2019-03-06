@@ -61,6 +61,7 @@ public class CarsEdmProvider extends CsdlAbstractEdmProvider {
   public CsdlEntityType getEntityType(final FullQualifiedName entityTypeName) throws ODataException {
     if (ET_CAR.equals(entityTypeName)) {
       return new CsdlEntityType()
+    	  .setOpenType(true)
           .setName(ET_CAR.getName())
           .setKey(Arrays.asList(
               new CsdlPropertyRef().setName("Id")))
@@ -82,6 +83,7 @@ public class CarsEdmProvider extends CsdlAbstractEdmProvider {
 
     } else if (ET_MANUFACTURER.equals(entityTypeName)) {
       return new CsdlEntityType()
+       	  .setOpenType(true)
           .setName(ET_MANUFACTURER.getName())
           .setKey(Arrays.asList(
               new CsdlPropertyRef().setName("Id")))
@@ -100,7 +102,7 @@ public class CarsEdmProvider extends CsdlAbstractEdmProvider {
 
   public CsdlComplexType getComplexType(final FullQualifiedName complexTypeName) throws ODataException {
     if (CT_ADDRESS.equals(complexTypeName)) {
-      return new CsdlComplexType().setName(CT_ADDRESS.getName()).setProperties(Arrays.asList(
+      return new CsdlComplexType().setOpenType(true).setName(CT_ADDRESS.getName()).setProperties(Arrays.asList(
           new CsdlProperty().setName("Street").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName()),
           new CsdlProperty().setName("City").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName()),
           new CsdlProperty().setName("ZipCode").setType(EdmPrimitiveTypeKind.String.getFullQualifiedName()),
