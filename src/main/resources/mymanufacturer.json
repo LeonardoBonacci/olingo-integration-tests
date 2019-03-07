@@ -1,5 +1,0 @@
-{
-  "@odata.context":"$metadata#Manufacturers/$entity",
-   "Name":"MyCarManufacturer",
-   "Address": {"Street": "Main","City": "Fairy City", "ZipCode": "42421", "Country":"FarFarAway"}
-}

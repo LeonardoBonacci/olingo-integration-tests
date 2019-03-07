@@ -1,2 +1,6 @@
-FROM tomcat:8-jre8
-ADD target/CarService.war /usr/local/tomcat/webapps/
+FROM openjdk:8-jre-alpine
+
+ADD ./target/car-demo.jar /app/
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app/car-demo.jar"]
+
+EXPOSE 8080
