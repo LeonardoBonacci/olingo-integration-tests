@@ -1,6 +1,6 @@
 { "@odata.context" : "http://localhost:8080/example.svc/$metadata#/Persons/$entity",
-  "@odata.id" : "/Persons('Unique')",
-  "id" : "Unique",
-  "lastName" : "Mouse",
+  "@odata.id" : "/Persons('Some')",
+  "id" : "Some",
+  "firstName" : "Some",
   "age" : 135
 }

@@ -1,8 +1,9 @@
 package guru.bonacci.olingo;
 
+
+import static com.palantir.docker.compose.logging.LogDirectory.circleAwareLogDirectory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.fail;
+
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
@@ -21,23 +26,51 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Requires a running server!!
- */
-public class CarResourceTests {
+import com.palantir.docker.compose.DockerComposeRule;
+import com.palantir.docker.compose.configuration.ProjectName;
+import com.palantir.docker.compose.connection.DockerPort;
+import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
-	String endpoint = "http://localhost:8080";
+public class CarResourceIT {
+
+	// DO NOT FORGET (on windows)
+	// DOCKER_COMPOSE_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker-compose.exe
+	// DOCKER_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker.exe
+
+	private static final int PORT = 8080;
+	private static final String SERVICE = "car-service";
+
 	RestTemplate client = new RestTemplate();
 
-	@Test
-	public void smoke() throws Exception {
-		ResponseEntity<String> response = client.getForEntity(endpoint + "/example.svc", String.class);
-		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	@ClassRule
+	public static DockerComposeRule docker = DockerComposeRule.builder()
+			.file("src/test/resources/docker-compose-it.yml").saveLogsTo(circleAwareLogDirectory(CarResourceIT.class))
+			.projectName(ProjectName.random()).waitingForService(SERVICE, HealthChecks.toHaveAllPortsOpen()).build();
+
+	static DockerPort dockerPort;
+
+	@BeforeClass
+	public static void initialize() {
+		dockerPort = docker.containers().container(SERVICE).port(PORT);
 	}
 
 	@Test
+	public void smoke() throws Exception {
+		String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
+		String serviceUrl = endpoint + "/example.svc";
+
+		Thread.sleep(3000);
+
+		ResponseEntity<String> response = client.getForEntity(serviceUrl, String.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+	}
+	
+	@Test
 	public void sdlClientCRD() throws Exception {
+		String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
 		String serviceUrl = endpoint + "/example.svc/Persons";
+
+		Thread.sleep(3000);
 
 		// count
 		String getResp = client.getForEntity(serviceUrl, String.class).getBody();
