@@ -12,3 +12,8 @@ It is not our goal to write beautiful code here. We just want to spot weakenesse
 
 If you, like me now, are ever confronted in life with the fact that OData is an absolute unchangeable given, remember Haruki Murakami's wise words:
 > *Pain is inevitable. Suffering is optional.* 
+
+
+> *Leider scheint dieses Framework hauptsächlich in Verbindung mit Spring bzw. Spring Boot gedacht zu sein und ist somit im Java EE Umfeld eher umständlich einzusetzen.*
+
+Zucht...
