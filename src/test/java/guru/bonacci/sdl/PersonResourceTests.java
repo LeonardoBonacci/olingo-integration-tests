@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class PersonResourceTests {
 
-	String endpoint = "http://localhost:8080/simple";
+	String endpoint = "http://localhost:8080/demo";
 	RestTemplate client = new RestTemplate();
 
 	@Test
