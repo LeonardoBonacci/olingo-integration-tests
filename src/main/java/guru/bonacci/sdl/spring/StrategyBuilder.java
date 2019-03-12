@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.datasource;
+package guru.bonacci.sdl.spring;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,7 +32,6 @@ import com.sdl.odata.api.processor.query.SelectPropertiesOperation;
 import com.sdl.odata.api.processor.query.SkipOperation;
 import com.sdl.odata.api.service.ODataRequestContext;
 
-import guru.bonacci.olingo.model.Person;
 import scala.collection.Iterator;
 
 

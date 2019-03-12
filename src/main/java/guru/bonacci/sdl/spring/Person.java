@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.model;
+package guru.bonacci.sdl.spring;
 
 import com.sdl.odata.api.edm.annotations.EdmEntity;
 import com.sdl.odata.api.edm.annotations.EdmEntitySet;
@@ -7,7 +7,6 @@ import com.sdl.odata.api.edm.annotations.EdmProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor

@@ -1,9 +1,10 @@
-package guru.bonacci.olingo;
+package guru.bonacci.sdl;
 
 
 import static com.palantir.docker.compose.logging.LogDirectory.circleAwareLogDirectory;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -31,20 +31,21 @@ import com.palantir.docker.compose.configuration.ProjectName;
 import com.palantir.docker.compose.connection.DockerPort;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 
-public class CarResourceIT {
+
+public class PersonResourceIT {
 
 	// DO NOT FORGET (on windows)
 	// DOCKER_COMPOSE_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker-compose.exe
 	// DOCKER_LOCATION=C:\Program Files\Docker\Docker\resources\bin\docker.exe
 
 	private static final int PORT = 8080;
-	private static final String SERVICE = "car-service";
+	private static final String SERVICE = "person-service";
 
 	RestTemplate client = new RestTemplate();
 
 	@ClassRule
 	public static DockerComposeRule docker = DockerComposeRule.builder()
-			.file("src/test/resources/docker-compose-it.yml").saveLogsTo(circleAwareLogDirectory(CarResourceIT.class))
+			.file("src/test/resources/docker-compose-it.yml").saveLogsTo(circleAwareLogDirectory(PersonResourceIT.class))
 			.projectName(ProjectName.random()).waitingForService(SERVICE, HealthChecks.toHaveAllPortsOpen()).build();
 
 	static DockerPort dockerPort;
@@ -57,7 +58,7 @@ public class CarResourceIT {
 	@Test
 	public void smoke() throws Exception {
 		String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
-		String serviceUrl = endpoint + "/example.svc";
+		String serviceUrl = endpoint + "/demo/example.svc";
 
 		Thread.sleep(3000);
 
@@ -68,7 +69,7 @@ public class CarResourceIT {
 	@Test
 	public void sdlClientCRD() throws Exception {
 		String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
-		String serviceUrl = endpoint + "/example.svc/Persons";
+		String serviceUrl = endpoint + "/demo/example.svc/Persons";
 
 		Thread.sleep(3000);
 
@@ -117,9 +118,24 @@ public class CarResourceIT {
 			} catch(HttpClientErrorException ex) {
 			// bad request...
 		}
-
 	}
 
+	@Test
+	public void functionCall() throws Exception {
+		String endpoint = String.format("http://%s:%s", dockerPort.getIp(), dockerPort.getExternalPort());
+		String serviceUrl = endpoint + "demo/example.svc/Persons/SDL.OData.Example.GetAverageAge()";
+
+		Thread.sleep(3000);
+
+		ResponseEntity<String> response = client.getForEntity(serviceUrl, String.class);
+		assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+		
+		String getResp = response.getBody();
+		System.out.println(getResp);
+		Assert.assertTrue(getResp.toString().contains("Edm.Double"));
+
+	}
+	
 	public String readFile(String fileName) throws IOException {
 		InputStream resource = new ClassPathResource(fileName).getInputStream();
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource))) {

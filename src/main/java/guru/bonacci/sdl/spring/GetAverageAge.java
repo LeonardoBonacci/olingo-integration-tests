@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.server;
+package guru.bonacci.sdl.spring;
 
 import java.util.concurrent.ConcurrentMap;
 
@@ -11,9 +11,6 @@ import com.sdl.odata.api.edm.annotations.EdmReturnType;
 import com.sdl.odata.api.edm.model.Operation;
 import com.sdl.odata.api.processor.datasource.factory.DataSourceFactory;
 import com.sdl.odata.api.service.ODataRequestContext;
-
-import guru.bonacci.olingo.datasource.InMemoryDataSource;
-import guru.bonacci.olingo.model.Person;
 
 /**
  * @author rdevries

@@ -3,16 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>guru.bonacci.olingo</groupId>
-	<artifactId>car-demo</artifactId>
-	<name>${project.artifactId}</name>
-	<version>4.5.0</version>
+	<groupId>guru.bonacci.sdl</groupId>
+	<artifactId>demo</artifactId>
+	<version>2.7.2</version>
+	<packaging>war</packaging>
+	<name>demo</name>
+
+	<build>
+		<finalName>demo</finalName>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<odata.version>2.7.2</odata.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	</properties>
 
 	<repositories>
 		<repository>
@@ -22,30 +29,12 @@
 		</repository>
 	</repositories>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<odata.version>2.7.2</odata.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.18.6</version>
 		</dependency>
 
 		<dependency>
@@ -63,10 +52,29 @@
 			<artifactId>odata_service</artifactId>
 			<version>${odata.version}</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.sdl</groupId>
-			<artifactId>odata_common</artifactId>
-			<version>${odata.version}</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>5.1.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.1.5.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -82,17 +90,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<finalName>car-demo</finalName>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

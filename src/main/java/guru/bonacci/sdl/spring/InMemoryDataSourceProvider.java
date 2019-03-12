@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.datasource;
+package guru.bonacci.sdl.spring;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,8 +21,6 @@ import com.sdl.odata.api.processor.query.QueryOperation;
 import com.sdl.odata.api.processor.query.QueryResult;
 import com.sdl.odata.api.processor.query.strategy.QueryOperationStrategy;
 import com.sdl.odata.api.service.ODataRequestContext;
-
-import guru.bonacci.olingo.model.Person;
 
 
 /**

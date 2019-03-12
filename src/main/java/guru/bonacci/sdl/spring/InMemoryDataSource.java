@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.datasource;
+package guru.bonacci.sdl.spring;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -15,7 +15,6 @@ import com.sdl.odata.api.processor.datasource.ODataDataSourceException;
 import com.sdl.odata.api.processor.datasource.TransactionalDataSource;
 import com.sdl.odata.api.processor.link.ODataLink;
 
-import guru.bonacci.olingo.model.Person;
 import scala.Option;
 
 @Component

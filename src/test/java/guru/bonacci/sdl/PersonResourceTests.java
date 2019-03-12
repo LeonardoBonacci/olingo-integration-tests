@@ -1,4 +1,4 @@
-package guru.bonacci.olingo;
+package guru.bonacci.sdl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -24,9 +24,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Requires a running server!!
  */
-public class CarResourceTests {
+public class PersonResourceTests {
 
-	String endpoint = "http://localhost:8080";
+	String endpoint = "http://localhost:8080/simple";
 	RestTemplate client = new RestTemplate();
 
 	@Test

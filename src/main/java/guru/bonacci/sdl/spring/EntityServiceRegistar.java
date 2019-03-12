@@ -1,4 +1,4 @@
-package guru.bonacci.olingo.server;
+package guru.bonacci.sdl.spring;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +13,8 @@ import org.springframework.stereotype.Component;
 import com.sdl.odata.api.ODataException;
 import com.sdl.odata.api.edm.registry.ODataEdmRegistry;
 
-import guru.bonacci.olingo.datasource.InMemoryDataSource;
-import guru.bonacci.olingo.model.Person;
-
 /**
- * @author rdevries
+ *TODO past this is in readme: https://github.com/omniavincitlabor/odata4-test
  */
 @Component
 public class EntityServiceRegistar {
