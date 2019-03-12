@@ -22,8 +22,10 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+<!-- optional: 
 	<servlet>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
-</web-app>
+ -->
+ </web-app>
