@@ -1,7 +1,7 @@
 # odata POC
 
 
-It's all about guru.bonacci.olingo.CarResourceIT
+Check the branch sdl-on-jee for the final result of this POC. This (the master) branch just contains a simple implementation of the later on rejected OLingo framework.
 -------------
 
 *Disclaimer* :) 
