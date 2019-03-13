@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.persistence;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +22,7 @@ import com.sdl.odata.api.processor.query.QueryResult;
 import com.sdl.odata.api.processor.query.strategy.QueryOperationStrategy;
 import com.sdl.odata.api.service.ODataRequestContext;
 
-import guru.bonacci.sdl.spring.model.Person;
+import guru.bonacci.sdl.model.Person;
 
 
 /**

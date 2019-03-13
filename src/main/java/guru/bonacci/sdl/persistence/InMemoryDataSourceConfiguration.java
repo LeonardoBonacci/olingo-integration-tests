@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.persistence;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.service;
 
 import java.util.concurrent.ConcurrentMap;
 
@@ -12,7 +12,8 @@ import com.sdl.odata.api.edm.model.Operation;
 import com.sdl.odata.api.processor.datasource.factory.DataSourceFactory;
 import com.sdl.odata.api.service.ODataRequestContext;
 
-import guru.bonacci.sdl.spring.model.Person;
+import guru.bonacci.sdl.model.Person;
+import guru.bonacci.sdl.persistence.InMemoryDataSource;
 
 @EdmFunction(name = "GetAverageAge", namespace = "SDL.OData.Example", isBound = true)
 @EdmReturnType(type = "Edm.Double")

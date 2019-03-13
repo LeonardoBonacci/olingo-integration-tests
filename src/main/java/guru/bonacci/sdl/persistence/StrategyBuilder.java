@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.persistence;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import com.sdl.odata.api.processor.query.SelectPropertiesOperation;
 import com.sdl.odata.api.processor.query.SkipOperation;
 import com.sdl.odata.api.service.ODataRequestContext;
 
-import guru.bonacci.sdl.spring.model.Person;
+import guru.bonacci.sdl.model.Person;
 import scala.collection.Iterator;
 
 

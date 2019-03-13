@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 import com.sdl.odata.api.ODataException;
 import com.sdl.odata.api.edm.registry.ODataEdmRegistry;
 
-import guru.bonacci.sdl.spring.model.Address;
-import guru.bonacci.sdl.spring.model.Person;
+import guru.bonacci.sdl.model.Address;
+import guru.bonacci.sdl.model.Person;
+import guru.bonacci.sdl.persistence.InMemoryDataSource;
 
 @Component
 public class EntityRegistrationService {

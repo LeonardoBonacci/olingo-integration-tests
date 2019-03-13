@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring.model;
+package guru.bonacci.sdl.model;
 
 import com.sdl.odata.api.edm.annotations.EdmEntity;
 import com.sdl.odata.api.edm.annotations.EdmEntitySet;

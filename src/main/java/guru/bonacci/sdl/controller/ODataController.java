@@ -1,4 +1,4 @@
-package guru.bonacci.sdl.spring;
+package guru.bonacci.sdl.controller;
 
 import static com.sdl.odata.util.ReferenceUtil.isNullOrEmpty;
 import static java.nio.charset.StandardCharsets.UTF_8;
