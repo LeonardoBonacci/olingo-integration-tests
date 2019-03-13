@@ -22,6 +22,8 @@ import com.sdl.odata.api.processor.query.QueryResult;
 import com.sdl.odata.api.processor.query.strategy.QueryOperationStrategy;
 import com.sdl.odata.api.service.ODataRequestContext;
 
+import guru.bonacci.sdl.spring.model.Person;
+
 
 /**
  * This is an example data source provide that uses in memory structures to demonstrate how to provide

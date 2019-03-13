@@ -15,6 +15,7 @@ import com.sdl.odata.api.processor.datasource.ODataDataSourceException;
 import com.sdl.odata.api.processor.datasource.TransactionalDataSource;
 import com.sdl.odata.api.processor.link.ODataLink;
 
+import guru.bonacci.sdl.spring.model.Person;
 import scala.Option;
 
 @Component
@@ -28,7 +29,7 @@ public class InMemoryDataSource implements DataSource {
         Person person = (Person) o;
     	System.out.println("INSERTING " + person);
         if(personConcurrentMap.putIfAbsent(person.getPersonId(), person) != null) {
-            throw new ODataDataSourceException("Could not create entity, already exists");
+            throw new ODataDataSourceException("Could not create person, already exists");
         }
 
         return person;
@@ -48,10 +49,10 @@ public class InMemoryDataSource implements DataSource {
 
     @Override
     public void delete(ODataUri oDataUri, EntityDataModel entityDataModel) throws ODataException {
-        Option<Object> entity = ODataUriUtil.extractEntityWithKeys(oDataUri, entityDataModel);
-        if(entity.isDefined()) {
-            Person person = (Person) entity.get();
-            personConcurrentMap.remove(person.getPersonId());
+        Option<Object> person = ODataUriUtil.extractEntityWithKeys(oDataUri, entityDataModel);
+        if(person.isDefined()) {
+            Person p = (Person) person.get();
+            personConcurrentMap.remove(p.getPersonId());
         }
     }
 

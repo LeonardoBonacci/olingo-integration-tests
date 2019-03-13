@@ -12,9 +12,8 @@ import com.sdl.odata.api.edm.model.Operation;
 import com.sdl.odata.api.processor.datasource.factory.DataSourceFactory;
 import com.sdl.odata.api.service.ODataRequestContext;
 
-/**
- * @author rdevries
- */
+import guru.bonacci.sdl.spring.model.Person;
+
 @EdmFunction(name = "GetAverageAge", namespace = "SDL.OData.Example", isBound = true)
 @EdmReturnType(type = "Edm.Double")
 public class GetAverageAge implements Operation<Double> {

@@ -3,5 +3,6 @@
   "id" : "Donaldus",
   "firstName" : "Donald",
   "lastName" : "Duck",
-  "age" : 81
+  "age" : 81,
+  "address": {"lastName":"Duck street","age":1}
 }

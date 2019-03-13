@@ -32,6 +32,7 @@ import com.sdl.odata.api.processor.query.SelectPropertiesOperation;
 import com.sdl.odata.api.processor.query.SkipOperation;
 import com.sdl.odata.api.service.ODataRequestContext;
 
+import guru.bonacci.sdl.spring.model.Person;
 import scala.collection.Iterator;
 
 
